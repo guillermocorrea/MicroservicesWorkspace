@@ -22,9 +22,7 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    console.log('signin', email, password);
     const existingUser = await User.findOne({ email });
-    console.log(existingUser);
 
     if (!existingUser) {
       throw new BadRequestError('Invalid credentials');

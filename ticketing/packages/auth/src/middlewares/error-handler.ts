@@ -7,7 +7,7 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.error(err);
+  // console.error(err);
 
   if (err instanceof AbstractSerializableError) {
     return res.status(err.statusCode).send(err.serializeErrors());

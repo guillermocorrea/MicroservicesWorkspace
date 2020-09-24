@@ -5,7 +5,14 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev --poll src/index.ts",
-    "test": "echo 'test autho'"
+    "test": "jest --watchAll --no-cache"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
   },
   "dependencies": {
     "@types/cookie-session": "^2.0.41",
@@ -16,9 +23,19 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-validator": "^6.6.0",
+    "express-winston": "^4.0.5",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.25",
     "ts-node-dev": "^1.0.0-pre.52",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "@types/supertest": "^2.0.10",
+    "jest": "^26.4.2",
+    "mongodb-memory-server": "^6.8.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.4.0"
   }
 }

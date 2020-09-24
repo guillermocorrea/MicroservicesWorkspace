@@ -1,5 +1,11 @@
 # Ticketing system
 
+## Start ingress-nginx
+
+```bash
+https://kubernetes.github.io/ingress-nginx/deploy/#docker-for-mac
+```
+
 ## Kubernetes secrets configuration
 
 ```bash

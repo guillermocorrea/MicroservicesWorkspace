@@ -1,5 +1,11 @@
-const Index = () => {
-  return <h1>Landing page</h1>;
+const Index = ({ currentUser }) => {
+  return currentUser ? (
+    <h1>You are signed in</h1>
+  ) : (
+    <h1>You are not signed in</h1>
+  );
 };
+
+Index.getInitialProps = async (ctx) => {};
 
 export default Index;

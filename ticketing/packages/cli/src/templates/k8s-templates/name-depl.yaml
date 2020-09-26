@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{name}}-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{name}}
+  template:
+    metadata:
+      labels:
+        app: {{name}}
+    spec:
+      containers:
+        - name: {{name}}
+          image: guillermocorrea/{{name}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{name}}-srv
+spec:
+  selector:
+    app: {{name}}
+  ports:
+    - name: {{name}}
+      port: 3000
+      targetPort: 3000

@@ -16,6 +16,8 @@ spec:
         - name: {{name}}
           image: guillermocorrea/{{name}}
           env:
+            - name: MONGO_URI
+              value: 'mongodb://{{name}}-mongo-srv:27017/{{name}}'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

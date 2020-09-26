@@ -5,6 +5,7 @@ import * as path from 'path';
 import * as inquirer from 'inquirer';
 import cli from 'cli-ux';
 import * as execa from 'execa';
+import * as yaml from 'js-yaml';
 
 const readFile = util.promisify(fs.readFile);
 const mkdir = util.promisify(fs.mkdir);
@@ -64,7 +65,34 @@ export async function createPackage(name: string) {
     context
   );
 
+  await updateSkaffold(name);
+
   cli.info('new package created', packageFolderPath);
+}
+
+async function updateSkaffold(name: string) {
+  const skaffoldFile = path.join(__dirname, '../../../../skaffold.yaml');
+  const doc = yaml.safeLoad(await readFile(skaffoldFile, 'utf8')) as any;
+  const imageName = `guillermocorrea/${name}`;
+  if ((doc.build.artifacts as any[]).find((a) => a.image === imageName)) {
+    return;
+  }
+  doc.build.artifacts.push({
+    image: imageName,
+    context: `packages/${name}`,
+    docker: {
+      dockerfile: 'Dockerfile',
+    },
+    sync: {
+      manual: [
+        {
+          src: 'src/**/*.ts',
+          dest: '.',
+        },
+      ],
+    },
+  });
+  await writeFile(skaffoldFile, yaml.dump(doc));
 }
 
 async function copyKubernetesFiles(

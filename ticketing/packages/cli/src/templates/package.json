@@ -1,8 +1,12 @@
 {
-  "name": "@ticketing/auth",
-  "version": "1.0.0",
+  "name": "@tinis/{{name}}",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/guillermocorrea/MicroservicesWorkspace",
+    "directory": "ticketing/packages/{{name}}"
+  },
   "scripts": {
     "start": "ts-node-dev --poll src/index.ts",
     "test": "jest --watchAll --no-cache"

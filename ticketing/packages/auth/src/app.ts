@@ -5,8 +5,7 @@ import cookieSession from 'cookie-session';
 import winston from 'winston';
 import expressWinston from 'express-winston';
 
-import { NotFoundError } from './errors/not-found-error';
-import { errorHandler } from './middlewares/error-handler';
+import { errorHandler, NotFoundError } from '@tinis/common';
 import { meRouter } from './routes/me';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';

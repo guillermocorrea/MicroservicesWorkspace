@@ -7,6 +7,10 @@
     "build/**/*"
   ],
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/guillermocorrea/MicroservicesWorkspace",
+    "directory": "ticketing/packages/common"
+  },
   "scripts": {
     "clean": "del ./build/*",
     "prebuild": "yarn clean",

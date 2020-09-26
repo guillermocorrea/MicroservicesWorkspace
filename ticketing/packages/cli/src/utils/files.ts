@@ -49,12 +49,20 @@ export async function createPackage(name: string) {
 
   const templateDir = path.join(__dirname, '../templates');
   const context = { name };
-  await copy(templateDir, packageFolderPath, context);
+  await copy(
+    path.join(templateDir, path.sep, 'api-template'),
+    packageFolderPath,
+    context
+  );
   cli.info('bootstrapping');
   await execa('npx', ['lerna', 'bootstrap']);
   cli.action.stop('√');
 
-  await copyKubernetesFiles(templateDir, name, context);
+  await copyKubernetesFiles(
+    path.join(templateDir, path.sep, 'k8s-templates'),
+    name,
+    context
+  );
 
   cli.info('new package created', packageFolderPath);
 }
@@ -69,7 +77,7 @@ async function copyKubernetesFiles(
   const kubernetsFolder = path.join(__dirname, '../../../../infra/k8s');
   const deplFile = path.join(kubernetsFolder, path.sep, `${name}-depl.yaml`);
   const deplOutput = await getTemplateResult(
-    path.join(templatesDir, path.sep, 'k8s-templates', 'name-depl.yaml'),
+    path.join(templatesDir, path.sep, 'name-depl.yaml'),
     context
   );
   await writeFile(deplFile, deplOutput);
@@ -91,7 +99,7 @@ async function copyKubernetesFiles(
     `${name}-mongo-depl.yaml`
   );
   const mongoDeplOutput = await getTemplateResult(
-    path.join(templatesDir, path.sep, 'k8s-templates', 'name-mongo-depl.yaml'),
+    path.join(templatesDir, path.sep, 'name-mongo-depl.yaml'),
     context
   );
   await writeFile(mongoDeplFile, mongoDeplOutput);
